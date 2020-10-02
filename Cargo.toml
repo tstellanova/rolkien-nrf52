@@ -1,0 +1,30 @@
+[package]
+name = "rolkien-nrf52"
+version = "0.1.0"
+authors = ["Todd Stellanova <tstellanova@users.noreply.github.com>"]
+edition = "2018"
+
+
+[dependencies]
+freertos-sys = {version="0.1", features=["nrf52x","dbgsym"], path="../freertos-sys"}
+#freertos-sys = {path="../freertos-sys", features=["stm32f4x","dbgsym"]}
+cty = "0.2.1"
+cortex-m = "^0.6.0"
+cortex-m-rt = "0.6"
+panic-rtt-core = "0.2"
+embedded-hal = "0.2.4"
+
+# Cortex-M family specialization:
+nrf52832-hal = {version = "0.8.1", default-features=false, features = ["xxAA-package", "rt"]}
+
+
+[profile.dev]
+codegen-units = 1 # better optimizations
+debug = true # symbols are nice and they don't increase the size in flash
+incremental = false
+
+[profile.release]
+codegen-units = 1 # better optimizations
+debug = true # symbols are nice and they don't increase the size in flash
+lto = true # better optimizations
+opt-level = "s" # optimize for binary size
